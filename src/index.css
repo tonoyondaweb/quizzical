@@ -1,0 +1,63 @@
+body {
+	margin: 0;
+	font-family: "Karla", sans-serif;
+}
+
+.start > h1,
+.start > p {
+	margin: 0;
+}
+
+.start {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #293264;
+}
+
+.start > h1 {
+	margin-bottom: 7px;
+}
+
+.start > p {
+	margin-bottom: 29px;
+}
+
+.start-button {
+	width: 193px;
+	height: 52px;
+	background-color: #4d5b9e;
+	color: #fff;
+	font-family: inherit;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+.start-button:active {
+	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+}
+
+.blob-right {
+	height: 235px;
+	right: 0px;
+	top: 0px;
+	border-radius: 0px;
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	z-index: -1;
+}
+
+.blob-left {
+	height: 235px;
+	border-radius: 0px;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	z-index: -1;
+}
