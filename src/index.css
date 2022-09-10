@@ -3,9 +3,8 @@ body {
 	font-family: "Karla", sans-serif;
 }
 
-.start > h1,
-.start > p {
-	margin: 0;
+h1, h2, p{
+	margin: 0
 }
 
 .start {
@@ -34,12 +33,20 @@ body {
 	border: none;
 	border-radius: 15px;
 	cursor: pointer;
+	font-weight: 600;
+	font-size: 1rem;
 }
 
-.start-button:active {
-	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
-	box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+.restart-button {
+	width: 104px;
+	height: 30px;
+	background-color: #4d5b9e;
+	color: #fff;
+	font-family: inherit;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	font-weight: 600;
 }
 
 .blob-right {
@@ -60,4 +67,43 @@ body {
 	left: 0px;
 	bottom: 0px;
 	z-index: -1;
+}
+
+.quiz {
+	padding: 0 10%;
+	padding-top: 37px;
+	color: #293264;
+}
+
+.question {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.options {
+	display: flex;
+	gap: 13px;
+	flex-wrap: wrap;
+}
+
+.option {
+	padding: 5px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.divider {
+	border: 1px solid #DBDEF0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	margin-top: 20px;
+	margin-bottom: 32px;
 }
