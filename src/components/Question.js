@@ -1,18 +1,17 @@
 export default function Question(props) {
 	const optionEls = props.options.map((option, index) => {
-		const optionNumber = index + 1;
-		const color = {
-			backgroundColor:
-				option === props.correctAnswer ? "#94D7A2" : "transparent",
-			border: option === props.correctAnswer ? "none" : "1px solid #4D5B9E",
-		};
+		const optionNumber = index;
 		return (
 			<p
 				className="option"
 				key={optionNumber}
-				option={optionNumber - 1}
-				style={color}
-			>
+				option={optionNumber}
+                onClick={
+                    !props.answered ?
+                    (event) => props.handleClick(event, props.index, option) :
+                    (event) =>  ''
+                }
+                >
 				{option}
 			</p>
 		);

@@ -3,42 +3,86 @@ import Question from "./components/Question";
 
 export default function App() {
 	const [start, setStart] = useState(false);
+	const [score, setScore] = useState(0);
 	const [quizData, setQuizData] = useState([
 		{
 			question: "",
-			correct_answer: "",
-			incorrect_answers: [""],
+			correctAnswer: "",
+			incorrectAnswers: [""],
+      options:[],
+      answered: false
 		},
 	]);
 
 	useEffect(() => {
 		fetch("https://opentdb.com/api.php?amount=5&difficulty=easy")
 			.then((res) => res.json())
-			.then((data) => setQuizData(data.results));
-	}, []);
+			.then((data) =>
+				setQuizData(
+					data.results.map((que) => {
+						return {
+							question: que.question,
+							correctAnswer: que.correct_answer,
+							incorrectAnswers: que.incorrect_answers,
+							options: [...que.incorrect_answers, que.correct_answer]
+								.map((value) => ({
+									value,
+									sort: Math.random(),
+								}))
+								.sort((a, b) => a.sort - b.sort)
+								.map(({ value }) => value),
+              answered: false
+						}
+					})
+				)
+			);
+	}, [start]);
 
-	// console.log(quizData[0])
-	// const que = quizData[0]
 	const questionEls = quizData.map((question, index) => {
 		const q = question.question;
-		const options = [...question.incorrect_answers, question.correct_answer]
-			.map((value) => ({ value, sort: Math.random() }))
-			.sort((a, b) => a.sort - b.sort)
-			.map(({ value }) => value);
-
 		return (
 			<Question
 				key={index + 1}
+				index={index}
 				question={q}
-				options={options}
-				correctAnswer={question.correct_answer}
+				options={question.options}
+				handleClick={answer}
+        answered={question.answered}
 			/>
 		);
 	});
-	// console.log(questionEls);
 
 	function startGame() {
-		setStart(prevState => !prevState);
+		setStart((prevState) => !prevState)
+    setScore(0)
+	}
+
+	function answer(event, qNo, op) {
+
+		setQuizData(prevState => {
+      const newData = prevState.map((que, index) => {
+        if(qNo === index && op === que.correctAnswer){
+          event.target.style.backgroundColor='#94D7A2'
+          setScore((prevScore) => prevScore < 5 ? prevScore + 1 : prevScore)
+          return {
+            ...que,
+            answered: true
+          }
+        }
+        else if(qNo === index && op !== que.correctAnswer){
+          event.target.style.backgroundColor='#F8BCBC'
+          return {...que, answered: true}
+        }
+        else{
+          return {...que}
+        }
+      });
+
+      return newData
+    })
+
+    // console.log(event.target.option);
+    // console.log(quizData)
 	}
 
 	return (
@@ -57,11 +101,13 @@ export default function App() {
 				<div>
 					<main className="quiz">{questionEls}</main>
 					<footer className="footer">
-          <h2 className="score">You scored 5/5 correct answers</h2>
-          <button className="restart-button" onClick={startGame}>
-						Play again
-					</button>
-          </footer>
+						<h2 className="score">
+							You scored {score}/5 correct answers
+						</h2>
+						<button className="restart-button" onClick={startGame}>
+							Play again
+						</button>
+					</footer>
 				</div>
 			)}
 		</div>
